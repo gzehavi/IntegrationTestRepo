@@ -8,18 +8,29 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create a file
         run: echo "Hello from create-file job!" > hello.txt
         shell: cmd
+
+      - name: Upload file
+        uses: actions/upload-artifact@v3
+        with:
+          name: hello-file
+          path: hello.txt
 
   read-file:
     runs-on: windows-latest
     needs: create-file
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Download file
+        uses: actions/download-artifact@v3
+        with:
+          name: hello-file
 
       - name: Read the file
         run: type hello.txt
