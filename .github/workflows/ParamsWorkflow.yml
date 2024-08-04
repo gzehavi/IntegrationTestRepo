@@ -1,3 +1,5 @@
+name: Parameterized Workflow with Tags
+
 on:
   workflow_dispatch:
     inputs:
@@ -21,13 +23,18 @@ on:
 
 jobs:
   log-the-inputs:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - run: |
-          echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Display the greeting message
+        run: |
+          echo Log level: $LEVEL
+          echo Tags: $TAGS
+          echo Environment: $ENVIRONMENT
+        shell: cmd
         env:
-          LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
-          ENVIRONMENT: ${{ inputs.environment }}
+          LEVEL: ${{ github.event.inputs.logLevel }}
+          TAGS: ${{ github.event.inputs.tags }}
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
