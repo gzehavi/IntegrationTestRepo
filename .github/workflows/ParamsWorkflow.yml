@@ -1,4 +1,4 @@
-name: Parameterized Workflow with Tags
+name: Parameterized Workflow without Environment
 
 on:
   workflow_dispatch:
@@ -16,10 +16,6 @@ on:
         description: 'Test scenario tags'
         required: false
         type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
 
 jobs:
   log-the-inputs:
@@ -28,13 +24,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Display the greeting message
+      - name: Display the inputs
         run: |
           echo Log level: $LEVEL
           echo Tags: $TAGS
-          echo Environment: $ENVIRONMENT
         shell: cmd
         env:
           LEVEL: ${{ github.event.inputs.logLevel }}
           TAGS: ${{ github.event.inputs.tags }}
-          ENVIRONMENT: ${{ github.event.inputs.environment }}
