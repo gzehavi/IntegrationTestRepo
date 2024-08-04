@@ -1,0 +1,26 @@
+name: Basic Windows Workflow with Dependencies
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-file:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create a file
+        run: echo "Hello from create-file job!" > hello.txt
+        shell: cmd
+
+  read-file:
+    runs-on: windows-latest
+    needs: create-file
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read the file
+        run: type hello.txt
+        shell: cmd
