@@ -33,5 +33,5 @@ jobs:
           name: hello-file
 
       - name: Read the file
-        run: type hello
+        run: type hello.txt
         shell: cmd
