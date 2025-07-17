@@ -1,10 +1,10 @@
-name: hello-world 1
+
 on:
   workflow_dispatch:
 jobs:
   my-job:
     runs-on: windows-latest
     steps:
-      - name: my-step-Change-Test
+      - name: my-step-Change
         run: echo "Hello World!"
         shell: cmd
