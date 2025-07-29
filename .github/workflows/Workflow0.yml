@@ -6,6 +6,6 @@ jobs:
   my-job:
     runs-on: windows-latest
     steps:
-      - name: my-step-Change
+      - name: my-step-Change Test
         run: echo "Hello World!"
         shell: cmd
