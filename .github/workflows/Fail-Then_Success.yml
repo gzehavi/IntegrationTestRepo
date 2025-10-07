@@ -1,0 +1,22 @@
+name: First Fails, Then Succeeds
+
+on:
+  workflow_dispatch:
+
+jobs:
+  always-pass:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job 1: always passes."
+
+  fail-then-pass:
+    needs: always-pass
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail on first attempt
+        if: ${{ github.run_attempt == 1 }}
+        run: |
+          echo "First attempt detected (run_attempt=${{ github.run_attempt }}). Failing intentionally."
+          exit 1
+      - name: Succeed on rerun
+        run: echo "Not the first attempt (run_attempt=${{ github.run_attempt }}). Succeeding now."
